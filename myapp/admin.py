@@ -1,3 +1,4 @@
 from django.contrib import admin
+from .models import Product  # Import your model
 
-# Register your models here.
+admin.site.register(Product)  # Register the Product model to be managed via the admin panel
