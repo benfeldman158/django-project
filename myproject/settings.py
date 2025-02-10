@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'myapp',  
+    'myapp',  # This line ensures your app is included
 ]
 
 
@@ -56,7 +56,7 @@ ROOT_URLCONF = 'myproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'myapp/templates'],
+        'DIRS': [BASE_DIR / 'myapp/templates'],  # This points to the template directory in your app
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
