@@ -2,6 +2,9 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from .models import Product  # Import your Product model
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 
 def search(request):
     query = request.GET.get('q', '')  # Get the search query from the URL
@@ -20,3 +23,15 @@ def help_page(request):
 @login_required
 def restricted_page(request):
     return render(request, 'myapp/restricted.html')
+
+def register(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            # Optionally log the user in after registration
+            login(request, user)
+            return redirect('home')  # Redirect to home page after registration
+    else:
+        form = UserCreationForm()
+    return render(request, 'myapp/register.html', {'form': form})
