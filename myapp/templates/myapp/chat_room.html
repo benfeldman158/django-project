@@ -1,0 +1,17 @@
+{% extends "myapp/base.html" %}
+
+{% block content %}
+<h1>Chat Room</h1>
+<a href="{% url 'create_message' %}">Post a new message</a>
+<ul>
+    {% for msg in messages %}
+        <li>
+            <strong>{{ msg.user.username }}:</strong> {{ msg.message }} <small>({{ msg.timestamp }})</small>
+            {% if msg.user == user %}
+                <a href="{% url 'update_message' msg.pk %}">Edit</a> |
+                <a href="{% url 'delete_message' msg.pk %}">Delete</a>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

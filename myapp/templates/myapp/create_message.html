@@ -1,0 +1,10 @@
+{% extends "myapp/base.html" %}
+
+{% block content %}
+<h1>Create Message</h1>
+<form method="post">
+    {% csrf_token %}
+    <textarea name="message" rows="4" cols="50" placeholder="Enter your message..."></textarea><br>
+    <button type="submit">Post Message</button>
+</form>
+{% endblock %}
