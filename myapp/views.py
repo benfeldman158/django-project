@@ -14,6 +14,10 @@ def activity_feed(request):
     activities = Activity.objects.all().order_by('-timestamp')[:20]  # Get the latest 20 activities
     return render(request, 'myapp/activity_feed.html', {'activities': activities})
 
+@login_required
+def profile(request):
+    # You can pass additional user info if needed
+    return render(request, 'myapp/profile.html', {'user': request.user})
 
 def chat_room(request):
     messages = ChatMessage.objects.all().order_by('timestamp')
