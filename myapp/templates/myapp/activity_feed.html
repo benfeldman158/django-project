@@ -1,0 +1,15 @@
+{% extends "myapp/base.html" %}
+
+{% block content %}
+<h1>Activity Feed</h1>
+<ul>
+    {% for activity in activities %}
+        <li>
+            {{ activity.timestamp|date:"Y-m-d H:i" }} - 
+            <strong>{{ activity.user.username }}</strong>: {{ activity.action }}
+        </li>
+    {% empty %}
+        <li>No recent activity.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

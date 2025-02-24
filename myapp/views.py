@@ -7,6 +7,13 @@ from django.contrib.auth import login
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import ChatMessage
+from .models import ChatMessage, Activity  # Import Activity model
+
+@login_required
+def activity_feed(request):
+    activities = Activity.objects.all().order_by('-timestamp')[:20]  # Get the latest 20 activities
+    return render(request, 'myapp/activity_feed.html', {'activities': activities})
+
 
 def chat_room(request):
     messages = ChatMessage.objects.all().order_by('timestamp')
@@ -17,6 +24,7 @@ def create_message(request):
         message_text = request.POST.get('message', '')
         if message_text:
             ChatMessage.objects.create(user=request.user, message=message_text)
+            Activity.objects.create(user=request.user, action="posted a message")
             return redirect('chat_room')
     return render(request, 'myapp/create_message.html')
 @login_required
